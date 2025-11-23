@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>포트폴리오</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="skills.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+
+<body>
+
+  <!-- 네비게이션 -->
+  <nav class="nav-bar">
+    <a href="#about">about me</a>
+    <a href="#skills">Skills&Tool</a>
+    <a href="#projects">Project</a>
+  </nav>
+
+  <!-- ABOUT -->
+  <div id="about" class="prof">
+    <h1>about me</h1>
+  </div>
+
+  <div class="about-container">
+    <div class="profile">
+      <img src="mayface.png" alt="Profile Image">
+      <div class="bio">
+        <p><span class="my-name">박현우</span></p>
+        <p><strong>Phone:</strong> 010-4872-8540</p>
+        <p><strong>Email:</strong> qkrgusdn556@gmail.com</p>
+        <p><strong>GitHub:</strong>
+          <a href="https://github.com/qkrgusdn556" target="_blank">
+            github.com/qkrgusdn556
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자기소개 -->
+  <div class="intro">
+    <h2>자기소개</h2>
+    <p>
+      군산대학교 컴퓨터정보공학과 박현우입니다.<br>
+      사용자 친화적인 UI/UX를 구현하는 데 관심이 있고,
+      창의적인 디자인과 효율적인 코드를 통해 더 나은 사용자 경험을 만드는 것을 목표로 하고 있습니다.<br>
+      아직 확신은 없지만 꾸준히 성장하며 함께 발전하는 개발자가 되고 싶습니다.
+    </p>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="skills" class="skill">
+    <h1>Skills </h1>
+  </div>
+
+  <div class="skills-section">
+    <h1>Skills</h1>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <img src="html_icon.png" alt="HTML Icon">
+        <p>HTML</p>
+      </div>
+      <div class="skill-item">
+        <img src="css_icon.png" alt="CSS Icon">
+        <p>CSS</p>
+      </div>
+      <div class="skill-item">
+        <img src="c_icon.png" alt="C Icon">
+        <p>C</p>
+      </div>
+      <div class="skill-item">
+        <img src="c++_icon.png" alt="C++ Icon">
+        <p>C++</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div id="projects" class="skill">
+    <h1>PROJECTS</h1>
+  </div>
+
+  <div class="project-container">
+    <div class="project-list">
+
+      <!-- 정적 기존 프로젝트 카드 -->
+    <!--<div class="project-card">
+        <h2>BLACKCOMPANY 회사 사이트</h2>
+        <p>HTML, CSS로 제작한 반응형 포트폴리오 웹사이트입니다. GitHub Pages로 배포했습니다.</p>
+        <a href="https://blackcompy.kro.kr/" target="BLACKVCOMPANY">BLACKVCOMPANY</a>
+        <a href="https://blackcompy.kro.kr/" target="_blank">
+        <img src="blackcompany.png" alt="Black Company 사이트 이미지">
+        </a>
+      </div>
+
+      <div class="project-card">
+        <h2>프로젝트 준비중</h2>
+        <p>프로젝트 준비중...</p>
+      </div>
+
+    </div>
+  -->
+
+    <!-- 🔥 DB에서 불러온 프로젝트가 들어가는 곳 -->
+    <div id="project-db-list"></div>
+
+  </div>
+
+  <!-- 스크롤 하이라이트 + DB fetch -->
+  <script>
+    const nav = document.querySelector(".nav-bar");
+    const navLinks = document.querySelectorAll(".nav-bar a");
+    const sections = document.querySelectorAll("#about, #skills, #projects");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+
+      // active 감지
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 200;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+    // 🔥 프로젝트 DB 자동 로딩
+    fetch("/api/projects")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("project-db-list");
+
+    data.forEach(p => {
+      container.innerHTML += `
+        <div class="project-card">
+          <h2>${p.title}</h2>
+          <p>${p.description}</p>
+          <a href="${p.link}" target="_blank">사이트 방문</a>
+          <img src="${p.image}" alt="${p.title}">
+        </div>
+      `;
+    });
+  });
+
+  </script>
+
+</body>
+</html>
