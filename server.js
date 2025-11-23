@@ -4,7 +4,8 @@ const path = require("path");
 const connectDB = require("./db/connect");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 // ⭐ JSON 파싱
 app.use(express.json());
