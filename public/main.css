@@ -10,13 +10,12 @@ html {
   z-index: 1000;
   border-bottom: 2px solid #3E3F5B;
   padding: 30px 0;
-    /* 스크롤 시 부드러운 변화 */
   transition: box-shadow 0.3s ease, padding 0.3s ease;
 }
 
 .nav-bar.scrolled {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  padding: 20px 0; /* 살짝 줄어드는 애니메이션 */
+  padding: 20px 0;
 }
 
 .nav-bar a {
@@ -27,20 +26,16 @@ html {
   border-radius: 30px;
   font-weight: bold;
   font-size: 1.1rem;
-
   transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-bar a:hover {
-  text-decoration: none;  
   color: #F3C623;
 }
 
 .nav-bar a.active {
   color: #F3C623;
   font-weight: bold;
-  
-
   transform: translateY(-2px);
 }
 
@@ -52,34 +47,29 @@ html {
   padding-bottom: 50px;
 }
 
-
-.prof  {
+.prof {
   text-align: left;
-   color: #3E3F5B;
+  color: #3E3F5B;
   font-size: 3em;
   margin-bottom: 40px;
   max-width: 800px;
-width: 90%;
-margin: 0 auto;
-
+  width: 90%;
+  margin: 0 auto;
 }
 
 .profile {
   display: flex;
-  align-items: center; /* �� flex-start �� center */
-  gap: 40px;            /* �� 100px �ʹ� ŭ */
-  flex-wrap: nowrap;    /* wrap ������ �и��� �� ���� */
-  margin-bottom: 40px;  /* �Ʒ� intro�� ���� ���� */
+  align-items: center;
+  gap: 40px;
+  flex-wrap: nowrap;
+  margin-bottom: 40px;
 }
 
 .profile img {
   width: 300px;
   height: auto;
   object-fit: contain;
-  border-radius: 0;
-  margin-top: 0;         /* ���� ���� ���� */
 }
-
 
 .bio p {
   margin: 30px 0;
@@ -95,29 +85,27 @@ margin: 0 auto;
 .my-name {
   font-size: 3em;
   font-weight: bold;
-  color: #3E3F5B;  /* �Ķ��� */
+  color: #3E3F5B;
   font-family: 'Arial', sans-serif;
 }
 
 .intro {
   max-width: 800px;
-  margin: 30px auto;         /* ���Ʒ� ���� ���̱� */
+  margin: 30px auto;
   padding: 20px;
   background-color: white;
   color: #3E3F5B;
   font-size: 1.1em;
   line-height: 1.6;
   border-radius: 8px;
- 
 }
-
 
 .intro h2 {
   margin-bottom: 15px;
   color: #3E3F5B;
 }
 
-/* 페이지 섹션 공통 간격 */
+/* 페이지 섹션 간격 */
 #about,
 #skills,
 #projects {
@@ -137,9 +125,14 @@ margin: 0 auto;
   margin-bottom: 80px;
 }
 
-/* projects는 더 크게 띄워주기 */
+/* 원인 해결: margin-bottom → padding-bottom 으로 변경 */
 .project-container {
   margin-top: 120px;
-  margin-bottom: 150px;
+  padding-bottom: 150px;   /* comment 영역과 충돌 방지 */
 }
 
+/* 댓글창 위치 안정화 */
+.comment-wrap {
+  clear: both;
+  margin-top: 80px;
+}

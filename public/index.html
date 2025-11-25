@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="skills.css">
   <link rel="stylesheet" href="project.css">
+  <link rel="stylesheet" href="QnA.css">
 </head>
 
 <body>
@@ -107,7 +108,44 @@
     <!-- 🔥 DB에서 불러온 프로젝트가 들어가는 곳 -->
     <div id="project-db-list"></div>
 
+
+
   </div>
+
+
+  <div class="comment-wrap">
+    <h2>댓글</h2>
+    <div class="comment-count">
+      총 <span id="commentCount">0</span>개
+    </div>
+
+    <!-- 댓글 입력 폼 -->
+    <div class="comment-form">
+      <div class="comment-form-row">
+        <input
+          type="text"
+          id="nicknameInput"
+          placeholder="닉네임"
+        />
+      </div>
+      <textarea
+        id="commentInput"
+        placeholder="댓글을 입력하세요."
+      ></textarea>
+      <button id="submitComment">댓글 등록</button>
+    </div>
+
+    <!-- 댓글 리스트 -->
+    <div id="commentList" class="comment-list">
+      <div id="emptyMessage" class="comment-empty">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- JS 파일 연결 -->
+  <script src="comment.js"></script>
+
 
   <!-- 스크롤 하이라이트 + DB fetch -->
   <script>
@@ -157,6 +195,87 @@
       `;
     });
   });
+
+  const nicknameInput = document.getElementById('nicknameInput');
+const commentInput  = document.getElementById('commentInput');
+const submitBtn     = document.getElementById('submitComment');
+const commentList   = document.getElementById('commentList');
+const commentCount  = document.getElementById('commentCount');
+const emptyMessage  = document.getElementById('emptyMessage');
+
+let comments = []; // 프론트 메모리 내에서만 저장됨
+
+function renderComments() {
+  commentList.innerHTML = '';
+
+  if (comments.length === 0) {
+    emptyMessage.style.display = 'block';
+    commentList.appendChild(emptyMessage);
+    commentCount.textContent = '0';
+    return;
+  }
+
+  emptyMessage.style.display = 'none';
+
+  comments.forEach((c) => {
+    const item = document.createElement('div');
+    item.className = 'comment-item';
+
+    item.innerHTML = `
+      <div class="comment-header">
+        <span class="comment-author">${c.nickname}</span>
+        <span class="comment-time">${c.time}</span>
+      </div>
+      <div class="comment-body">${c.text}</div>
+    `;
+
+    commentList.appendChild(item);
+  });
+
+  commentCount.textContent = String(comments.length);
+}
+
+function getNowString() {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mi = String(d.getMinutes()).padStart(2, '0');
+
+  return `${yyyy}.${mm}.${dd} ${hh}:${mi}`;
+}
+
+function addComment() {
+  const nickname = nicknameInput.value.trim() || '익명';
+  const text = commentInput.value.trim();
+
+  if (!text) {
+    alert('댓글 내용을 입력하세요.');
+    return;
+  }
+
+  comments.push({
+    nickname,
+    text,
+    time: getNowString(),
+  });
+
+  commentInput.value = '';
+  renderComments();
+}
+
+submitBtn.addEventListener('click', addComment);
+
+// Ctrl+Enter 입력
+commentInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+    addComment();
+  }
+});
+
+renderComments();
+
 
   </script>
 

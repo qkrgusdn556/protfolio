@@ -5,13 +5,11 @@
   top: 0;
   z-index: 1000;
   border-bottom: 2px solid #3E3F5B;
-
   padding: 30px 0; 
 }
 
 .nav-bar a {
-  
-  color:  #3E3F5B; 
+  color: #3E3F5B; 
   text-decoration: none;
   margin: 0 15px;
   padding: 10px 20px;
@@ -22,25 +20,29 @@
 }
 
 .nav-bar a:hover {
-  text-decoration: none;  
   color: #F3C623;
 }
+
+/* 전체 섹션 타이틀 공통 */
 .skill {
-  text-align: center;        /* 텍스트도 가운데 정렬 */
+  text-align: center;
   color: #3E3F5B;
   font-size: 3em;
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
   max-width: 800px;
   width: 90%;
-  margin: 0 auto;
 }
 
+/* 🔥 프로젝트 섹션 (중복 제거 + 안전한 구조로 정리) */
 .project-container {
   padding: 50px;
-  
   color: #3E3F5B;
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
+
+  /* 기존 margin-bottom: 150px → 충돌 유발 */
+  margin-top: 120px;
+  padding-bottom: 150px;  /* 안전하게 내부 여백으로 변경 */
 }
 
 .project-container h1 {
@@ -49,20 +51,20 @@
   margin-bottom: 40px;
 }
 
+/* 프로젝트 카드 리스트 */
 .project-list {
   display: flex;
-  flex-wrap: wrap; /* 화면 작으면 자동 줄바꿈 */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 40px; /* 카드 사이 간격 */
+  gap: 40px;
   padding: 40px 0;
 }
-
 
 .project-card {
   background-color: #3E3F5B;
   border: 2px solid #eee;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 400px; /* 고정 너비 */
+  width: 400px;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -74,7 +76,6 @@
   margin-top: 15px;
   border-radius: 8px;
 }
-
 
 .project-card h2 {
   margin-bottom: 10px;
@@ -88,26 +89,24 @@
 
 .project-card a {
   color: #f4b942;
-  text-decoration:none;
-    font-size: 1.5rem;
-
+  text-decoration: none;
+  font-size: 1.5rem;
 }
 
-/* intro는 약간만 띄움 */
+/* intro */
 .intro {
   margin-top: 60px;
   margin-bottom: 80px;
 }
 
-/* skills 리스트 섹션 */
+/* skills section */
 .skills-section {
   margin-top: 80px;
   margin-bottom: 80px;
 }
 
-/* projects는 더 크게 띄워주기 */
-.project-container {
-  margin-top: 120px;
-  margin-bottom: 150px;
+/* 댓글창 위치 안정화 */
+.comment-wrap {
+  clear: both;
+  margin-top: 100px;  /* 프로젝트와 간격 확보 */
 }
-
